@@ -1,0 +1,368 @@
+﻿```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wednesday Style Birthday</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      min-height:100vh;
+      overflow:hidden;
+      background:
+      linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.8)),
+      url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1400&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family:'Poppins',sans-serif;
+      color:white;
+      position:relative;
+    }
+
+    /* Fog Effect */
+    body::before{
+      content:"";
+      position:absolute;
+      width:200%;
+      height:200%;
+      background:url('https://i.imgur.com/BGQ1ZpL.png');
+      opacity:0.08;
+      animation:fogMove 60s linear infinite;
+    }
+
+    @keyframes fogMove{
+      from{
+        transform:translateX(0);
+      }
+      to{
+        transform:translateX(-500px);
+      }
+    }
+
+    .container{
+      width:92%;
+      max-width:420px;
+      height:90vh;
+      background:rgba(10,10,10,0.75);
+      backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      overflow:hidden;
+      position:relative;
+      box-shadow:
+      0 0 30px rgba(0,0,0,0.8),
+      0 0 10px rgba(255,255,255,0.05);
+    }
+
+    .page{
+      width:100%;
+      height:100%;
+      display:none;
+      padding:28px;
+      text-align:center;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      animation:fade 0.7s ease;
+      position:absolute;
+    }
+
+    .page.active{
+      display:flex;
+    }
+
+    @keyframes fade{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    h1{
+      font-family:'Cinzel',serif;
+      font-size:2.3rem;
+      letter-spacing:2px;
+      margin-bottom:15px;
+      color:#f5f5f5;
+      text-shadow:0 0 10px rgba(255,255,255,0.15);
+    }
+
+    h2{
+      font-family:'Cinzel',serif;
+      font-size:1.4rem;
+      margin-bottom:20px;
+      color:#9ca3af;
+    }
+
+    p{
+      font-size:0.95rem;
+      line-height:1.9;
+      color:#d1d5db;
+      margin-bottom:25px;
+      max-height:55vh;
+      overflow-y:auto;
+      padding-right:5px;
+    }
+
+    .btn{
+      padding:13px 30px;
+      border:none;
+      border-radius:999px;
+      background:linear-gradient(135deg,#111827,#374151);
+      color:white;
+      cursor:pointer;
+      font-weight:600;
+      letter-spacing:1px;
+      transition:0.3s;
+      border:1px solid rgba(255,255,255,0.1);
+      box-shadow:0 0 15px rgba(255,255,255,0.05);
+    }
+
+    .btn:hover{
+      transform:scale(1.05);
+      background:linear-gradient(135deg,#1f2937,#4b5563);
+    }
+
+    .quote{
+      color:#9ca3af;
+      font-style:italic;
+      margin-bottom:20px;
+      font-size:0.9rem;
+    }
+
+    /* Raven */
+    .raven{
+      position:absolute;
+      font-size:2rem;
+      opacity:0.8;
+      animation:float 4s ease-in-out infinite;
+    }
+
+    .r1{
+      top:15px;
+      left:20px;
+    }
+
+    .r2{
+      bottom:20px;
+      right:20px;
+      animation-delay:1.5s;
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0);
+      }
+      50%{
+        transform:translateY(-10px);
+      }
+    }
+
+    .blood{
+      color:#b91c1c;
+      text-shadow:0 0 8px rgba(185,28,28,0.5);
+    }
+
+    .small{
+      margin-top:15px;
+      font-size:0.8rem;
+      opacity:0.6;
+    }
+
+    @media(max-width:480px){
+
+      h1{
+        font-size:1.8rem;
+      }
+
+      p{
+        font-size:0.9rem;
+      }
+
+      .container{
+        height:95vh;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Ravens -->
+    <div class="raven r1">🕷️</div>
+    <div class="raven r2">🦇</div>
+
+    <!-- Page 1 -->
+    <div class="page active" id="page1">
+
+      <h1>Happy Birthday</h1>
+
+      <div class="quote">
+        “Darkness suits some people better.”
+      </div>
+
+      <p>
+        Most birthdays are loud, cheerful, and painfully predictable.
+        But you?
+        You were never meant to be ordinary.
+
+        There’s something beautifully strange about you…
+        something mysterious that makes people stay curious.
+
+        Maybe that’s why your presence feels different.
+        Calm.
+        Dangerous.
+        Unforgettable.
+      </p>
+
+      <button class="btn" onclick="nextPage(2)">
+        Continue ➜
+      </button>
+
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page" id="page2">
+
+      <h1 class="blood">A Beautiful Mystery</h1>
+
+      <p>
+        You walk into people’s lives like a silent storm.
+        Quiet on the outside…
+        chaos on the inside.
+
+        And honestly?
+        That’s what makes you special.
+
+        Not everyone shines brightly.
+        Some people glow in darkness instead.
+
+        You’re one of them.
+      </p>
+
+      <button class="btn" onclick="nextPage(3)">
+        Next ➜
+      </button>
+
+    </div>
+
+    <!-- Page 3 -->
+    <div class="page" id="page3">
+
+      <h1>Final Message</h1>
+
+      <p>
+        I hope your life becomes the kind of story
+        people never forget.
+
+        Full of mystery.
+        Full of madness.
+        Full of moments that feel unreal.
+
+        Keep being different.
+        Keep being unforgettable.
+
+        And no matter how dark the night gets…
+        never lose your spark.
+      </p>
+
+      <h2>
+        Happiest Birthday 🖤
+      </h2>
+
+      <button class="btn" onclick="celebrate()">
+        Enter The Darkness 🎉
+      </button>
+
+      <div class="small">
+        Nevermore Academy Vibes
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    function nextPage(page){
+
+      document.querySelectorAll('.page').forEach(p=>{
+        p.classList.remove('active');
+      });
+
+      document.getElementById('page'+page).classList.add('active');
+
+      confetti({
+        particleCount:50,
+        spread:70,
+        colors:['#ffffff','#6b7280','#111827']
+      });
+
+    }
+
+    function celebrate(){
+
+      const duration = 4000;
+      const end = Date.now() + duration;
+
+      (function frame(){
+
+        confetti({
+          particleCount:4,
+          angle:60,
+          spread:60,
+          origin:{x:0},
+          colors:['#ffffff','#9ca3af','#111827']
+        });
+
+        confetti({
+          particleCount:4,
+          angle:120,
+          spread:60,
+          origin:{x:1},
+          colors:['#ffffff','#9ca3af','#111827']
+        });
+
+        if(Date.now() < end){
+          requestAnimationFrame(frame);
+        }
+
+      })();
+
+    }
+
+    window.onload = () => {
+
+      confetti({
+        particleCount:80,
+        spread:90,
+        colors:['#ffffff','#6b7280','#111827']
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>
+```
